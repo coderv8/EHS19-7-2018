@@ -73,6 +73,8 @@ namespace WebApplication1
         {
             List<Property> propertyList = new List<Property>();
             propertyList = buyerValidationObj.showProperties(state, city);
+            if(propertyList==null)
+                Response.Write("<script>alert('There are no properties to be displayed');</script>");
             foreach (var k in propertyList)
             {
 

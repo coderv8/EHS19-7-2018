@@ -39,26 +39,33 @@
   
         <div>
         <table style="width:100%">
-      
+       <tr>
+            <td colspan="2" style="text-align: center">
+            </td>
+        </tr>
         <tr>
-            <td style="width:20%;vertical-align:top;background-color:#fcb8d5;">
-                <ul>
-                    <li>
-                        <asp:HyperLink ID="hrlLnDHome" runat="server" Text="L & D Home" NavigateUrl="~/LnDHome.aspx"></asp:HyperLink>
-                    </li>
-                    <li>
-                        <asp:HyperLink ID="hrlCollege" runat="server" Text="College Hires" NavigateUrl="~/CollegeHires.aspx"></asp:HyperLink>
-                    </li>
-                    <li>
-                        <asp:HyperLink ID="hrlMDP" runat="server" Text="Managerial Development Program" NavigateUrl="~/MDP.aspx"></asp:HyperLink>
-                    </li>
-                    <li>
-                        <asp:HyperLink ID="hrlEmerging" runat="server" Text="Emerging Technologies" NavigateUrl="~/EmergingTech.aspx"></asp:HyperLink>
-                    </li>
-                    <li>
-                        <asp:HyperLink ID="hrlFMP" runat="server" Text="Future Manager Program" NavigateUrl="~/FMP.aspx"></asp:HyperLink>
-                    </li>
-                </ul>
+            <td style="width: 20%; vertical-align: top;">
+                <div class="form-group">
+                    <asp:DropDownList runat="server" CssClass="form-control" ID="ddlState" Width="50%" Height="40px" AutoPostBack="True" OnSelectedIndexChanged="ddlState_SelectedIndexChanged">
+                    </asp:DropDownList>
+                </div>
+                <div class="form-group">
+                    <asp:DropDownList runat="server" CssClass="form-control" ID="ddlCity" Width="50%" Height="40px" ></asp:DropDownList>
+                </div>
+                <div class="form-group">
+                    <asp:Button runat="server" ID="btnSearchByRegion" Text="Search" ForeColor="White" BackColor="Gray" class="btn btn-default" Width="50%" Height="40px" OnClick="btnSearchByRegion_Click" />
+                </div>
+
+                <div class="form-group">
+                    <asp:TextBox placeholder="MinRange" TextMode="Number" ID="txtMinRange" runat="server"  CssClass="form-control"></asp:TextBox>
+                </div>
+                <div class="form-group">
+                      <asp:TextBox placeholder="MaxRange" TextMode="Number" ID="txtMaxRange" runat="server"  CssClass="form-control"></asp:TextBox>
+                </div>
+                <div class="form-group">
+                    <asp:Button runat="server" ID="btnSearchByPrice" Text="Search" ForeColor="White" BackColor="Gray" class="btn btn-default" Width="50%" Height="40px" OnClick="btnSearchByPrice_Click"/>
+                </div>
+
             </td>
             <td style="width:80%;vertical-align:top">
                 <div id="box">

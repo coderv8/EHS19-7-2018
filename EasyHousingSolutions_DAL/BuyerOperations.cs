@@ -215,24 +215,25 @@ namespace EasyHousingSolutions_DAL
         {
             EasyHousingSolutions_Entities entity = new EasyHousingSolutions_Entities();
             // Creating a list object of type Property
-            List<Property> propertyList = new List<Property>();
+            //List<Property> propertyList = new List<Property>();
 
 
 
 
-         var   result = (from prop in entity.Properties
+         var  result = (from prop in entity.Properties
+                        where prop.IsActive==true
                       select prop);
             if (state != string.Empty && city != string.Empty)
             {
                 result = (from prop in entity.Properties
-                          where prop.StateId == (from sId in entity.States where sId.StateName == state select sId.StateId).FirstOrDefault()
-                          && prop.CityId == (from sId in entity.Cities where sId.CityName == city select sId.CityId).FirstOrDefault()
+                          where prop.StateId == (from sId in entity.States where sId.StateName == state  select sId.StateId).FirstOrDefault()
+                          && prop.CityId == (from sId in entity.Cities where sId.CityName == city select sId.CityId).FirstOrDefault() && prop.IsActive == true
                           select prop);
             }
             else if (state != string.Empty && city == string.Empty)
             {
                 result = (from prop in entity.Properties
-                          where prop.StateId == (from sId in entity.States where sId.StateName == state select sId.StateId).FirstOrDefault()
+                          where prop.StateId == (from sId in entity.States where sId.StateName == state  select sId.StateId).FirstOrDefault() && prop.IsActive == true
                           select prop);
             }
 
@@ -241,14 +242,14 @@ namespace EasyHousingSolutions_DAL
 
 
             // A LINQ query to get all property details of the buyer
-            var HouseDetails = from PropertyData in entity.Properties
-                               select PropertyData;
-            //This Loop will show the property Details of buyer
-            foreach (var k in HouseDetails)
-            {
-                propertyList.Add(k);
-            }
-            return propertyList;
+            //var HouseDetails = from PropertyData in entity.Properties
+            //                   select PropertyData;
+            ////This Loop will show the property Details of buyer
+            //foreach (var k in HouseDetails)
+            //{
+            //    propertyList.Add(k);
+            //}
+            return result.ToList<Property>() ;
 
 
         }

@@ -25,14 +25,31 @@
                 <div class="form-group">
                     <asp:Button ID="btnAddProp" runat="server" Text="Add Property" BackColor="Green" ForeColor="White"  class="btn btn-default" Width="50%" Height="40px" OnClick="btnAddProp_Click" />
                 </div>
-                <div class="form-group">
+                <%--<div class="form-group">
                     <asp:HyperLink ID="hlEdit" Text="Edit property" runat="server" NavigateUrl="~/EditProperty.aspx"></asp:HyperLink>
-                </div>
+                </div>--%>
             </td>
 
             <td style="width: 80%; vertical-align: top">
                 <%--<asp:ContentPlaceHolder ID="cphLnDBody" runat="server"></asp:ContentPlaceHolder>--%>
+                <div id="box">
+                  
+                    <div class="container">
+  
+ 
+  <div class="card" id="imgdiv" style="width:400px">
+    
+    <div class="card-body" id="bodydiv" runat="server">
+     
 
+        
+        
+    </div>
+  </div>
+  <br>
+  </div>
+
+              </div>
             </td>
         </tr>
     </table>

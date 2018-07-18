@@ -118,7 +118,7 @@ namespace WebApplication1
             City city = cities[ddlCity.SelectedIndex];
             cityId = city.CityId;
             addProperty.CityId = cityId;
-
+            addProperty.Description = txtDesc.Text;
             sellerObj.AddProperty(addProperty);
 
             Response.Redirect("SellerHome.aspx");

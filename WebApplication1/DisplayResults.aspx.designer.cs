@@ -13,49 +13,58 @@ namespace WebApplication1 {
     public partial class DisplayResults {
         
         /// <summary>
-        /// hrlLnDHome control.
+        /// ddlState control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.HyperLink hrlLnDHome;
+        protected global::System.Web.UI.WebControls.DropDownList ddlState;
         
         /// <summary>
-        /// hrlCollege control.
+        /// ddlCity control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.HyperLink hrlCollege;
+        protected global::System.Web.UI.WebControls.DropDownList ddlCity;
         
         /// <summary>
-        /// hrlMDP control.
+        /// btnSearchByRegion control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.HyperLink hrlMDP;
+        protected global::System.Web.UI.WebControls.Button btnSearchByRegion;
         
         /// <summary>
-        /// hrlEmerging control.
+        /// txtMinRange control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.HyperLink hrlEmerging;
+        protected global::System.Web.UI.WebControls.TextBox txtMinRange;
         
         /// <summary>
-        /// hrlFMP control.
+        /// txtMaxRange control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.HyperLink hrlFMP;
+        protected global::System.Web.UI.WebControls.TextBox txtMaxRange;
+        
+        /// <summary>
+        /// btnSearchByPrice control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnSearchByPrice;
         
         /// <summary>
         /// bodydiv control.

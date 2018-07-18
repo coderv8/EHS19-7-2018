@@ -70,6 +70,11 @@ namespace WebApplication1
 
         protected void submit_Click(object sender, EventArgs e)
         {
+            HttpCookie sortInfo = new HttpCookie("sortInfo");
+            sortInfo["State"] = ddlState.SelectedItem.ToString() ;
+            sortInfo["City"] =ddlCity.SelectedItem.ToString() ;
+            sortInfo.Expires.Add(new TimeSpan(0, 1, 0));
+            Response.Cookies.Add(sortInfo);
             Response.Redirect("DisplayResults.aspx");
         }
     }

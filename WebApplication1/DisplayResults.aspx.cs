@@ -13,37 +13,70 @@ namespace WebApplication1
 {
     public partial class DisplayResults : System.Web.UI.Page
     {
+        SellerValidations sellerObj = new SellerValidations();
+        AdminValidations adminObj = new AdminValidations();
+        BuyerValidations buyerValidationObj = new BuyerValidations();
+       
+        List<State> states = null;
+        List<City> cities = null;
+        static int stateId = 1;
+        string state = "";
+        string city = "";
         protected void Page_Load(object sender, EventArgs e)
         {
+            cities = sellerObj.GetCities(stateId);
+            states = sellerObj.GetStates();
+            if (!IsPostBack)
+            {
+                
+                
+                ddlState.DataTextField = "StateName";
+                ddlState.DataValueField = "StateName";
+                ddlState.DataSource = states;
+                // ddlState.SelectedIndex = 0;
+                ddlState.DataBind();
+                ddlCity.DataSource = cities;
+                ddlCity.DataValueField = "CityName";
+                ddlCity.DataBind();
+
+                HttpCookie reqCookies = Request.Cookies["sortInfo"];
+                if (reqCookies != null)
+                {
+                    state = reqCookies["State"].ToString();
+                    city = reqCookies["City"].ToString();
+                }
+                DisplayProperties(e);
+            }
             if (Session["userId"] == null)
             {
-                Response.Redirect("Login.aspx");
+                //Response.Redirect("Login.aspx");
+                Master.Logout = false;
+                Master.Login = true;
+                Master.Signup = true;
+                Master.Profile = false;
+               
+                //Master.lbl_Profile = Session["userName"].ToString();
             }
+            else { 
             Master.Logout = true;
             Master.Login = false;
             Master.Signup = false;
             Master.Profile = true;
-            Master.lbl_Profile = Session["userName"].ToString();
+            Master.lbl_Profile = Session["userName"].ToString();  
+                
+            }
+
+
         }
 
-
-
-
-        /// <summary>  
-        /// Load Controls on OnInit event  
-        /// </summary>  
-        /// <param name="e"></param>  
-        override protected void OnInit(EventArgs e)
+       protected void DisplayProperties(EventArgs e)
         {
-            BuyerValidations buyerValidationObj = new BuyerValidations();
-          
-                List<Property> propertyList = new List<Property>();
-                propertyList = buyerValidationObj.showProperties();
-          
-                foreach (var k in propertyList)
-                {
-              
-                    string imgpath = @"Images\home_back.jpeg";
+            List<Property> propertyList = new List<Property>();
+            propertyList = buyerValidationObj.showProperties(state, city);
+            foreach (var k in propertyList)
+            {
+
+                string imgpath = @"Images\home_back.jpeg";
 
 
                 // Intializing the UI Controls...
@@ -60,7 +93,7 @@ namespace WebApplication1
                 //Create Group Container Div  
                 HtmlGenericControl div = new HtmlGenericControl("div");
                 div.Attributes.Add("class", "form-group");
-             
+
                 // dynamic image
 
                 System.Web.UI.WebControls.Image img = new System.Web.UI.WebControls.Image();
@@ -73,9 +106,9 @@ namespace WebApplication1
                 // Mapping the Property data with UI controls...
 
                 lblPropname.Text = k.PropertyName;
-                lblType.Text = "Type :  " + k.PropertyType+"     ";
+                lblType.Text = "Type :  " + k.PropertyType + "     ";
                 lblPropOption.Text = "Option :  " + k.PropertyOption + "     ";
-               // lblPropDescription.Text = "Description : \t" + k.Description;
+                // lblPropDescription.Text = "Description : \t" + k.Description;
                 lblAddress.Text = "Address :  " + k.Address + "     ";
                 lblPrice.Text = "Price :  " + k.PriceRange + "     ";
                 lblIntialdeposit.Text = "Intial Deposit :  " + k.InitialDeposit + "     ";
@@ -104,23 +137,28 @@ namespace WebApplication1
 
                 //});
 
-            
-               
-               
+
+
+
 
 
                 //button..
                 string propertyId = k.PropertyId.ToString();
-                var btnAddcart = new Button { ID = "btnClick" + propertyId, Text = "Add To Cart",
-                  //  CssClass = "col-md-2 btn btn-info"
+                var btnAddcart = new Button
+                {
+                    ID = "btnClick" + propertyId,
+                    Text = "Add To Cart",
+                    //  CssClass = "col-md-2 btn btn-info"
                 };
 
                 btnAddcart.Click += (s, RoutedEventArgs) => { ConfirmCart(s, e, propertyId); };
 
                 // GetDataItem owner details..
 
-                var btnOwnerDetails = new Button { Text = "Get Owner Details" ,
-                   // CssClass = "col-md-2 btn btn-info"
+                var btnOwnerDetails = new Button
+                {
+                    Text = "Get Owner Details",
+                    // CssClass = "col-md-2 btn btn-info"
                 };
 
                 // Adding all the childs to div
@@ -133,6 +171,17 @@ namespace WebApplication1
                 bodydiv.Controls.Add(new LiteralControl("<br /><br/>"));
             }
         }
+
+
+        /// <summary>  
+        /// Load Controls on OnInit event  
+        /// </summary>  
+        /// <param name="e"></param>  
+        //override protected void OnInit(EventArgs e)
+        //{
+ 
+                
+        //}
 
         private void ConfirmCart(object sender, EventArgs e, string propertyId)
         {
@@ -162,7 +211,42 @@ namespace WebApplication1
             // Response.Write("<script>alert('data added to cart :" + data + "');</script>");
         }
 
-  
-       
+        protected void btnSearchByRegion_Click(object sender, EventArgs e)
+        {
+           //HttpCookie sortInfo = Request.Cookies["sortInfo"]; ;
+           // sortInfo = new HttpCookie("sortInfo");
+           // sortInfo.Values["State"] = ddlState.SelectedItem.ToString(); ;
+           // sortInfo.Values["City"] = ddlCity.SelectedItem.ToString();
+           // sortInfo.Expires.Add(new TimeSpan(0, 1, 0));
+           // Response.Cookies.Add(sortInfo);
+           state= ddlState.SelectedItem.ToString();
+            city= ddlCity.SelectedItem.ToString(); 
+            EventArgs ea = new EventArgs();
+            DisplayProperties(ea);
+        }
+
+        protected void btnSearchByPrice_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        protected void ddlState_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            try
+            {
+
+                State state = states[ddlState.SelectedIndex];
+                stateId = state.StateId;
+                cities = sellerObj.GetCities(stateId);
+                ddlCity.DataSource = cities;
+                ddlCity.SelectedIndex = 0;
+                ddlCity.DataValueField = "CityName";
+                ddlCity.DataBind();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
     }
 }

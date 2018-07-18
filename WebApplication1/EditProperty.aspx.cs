@@ -13,9 +13,10 @@ namespace WebApplication1
     {
         SellerValidations sellerObj = new SellerValidations();
         Property prp = null;
+        int propId = 0;
         protected void Page_Load(object sender, EventArgs e)
         {
-
+           propId=int.Parse( Session["PropId"].ToString());
             if (Session["userId"] == null)
             {
                 Response.Redirect("Login.aspx");
@@ -59,7 +60,7 @@ namespace WebApplication1
                 ddlCity.DataBind();
             }
         }
-        int propId = 21;
+        
         
 
         protected void ddlState_SelectedIndexChanged(object sender, EventArgs e)

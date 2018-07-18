@@ -123,7 +123,7 @@ namespace EasyHousingSolutions_BLL
 
 
         #region show all the properties..
-        public List<Property> showProperties()
+        public List<Property> showProperties(string state, string city)
         {
             List<Property> propertyList = new List<Property>();
             try
@@ -131,7 +131,7 @@ namespace EasyHousingSolutions_BLL
 
                 bo = new BuyerOperations();
                 {
-                  //  propertyList = bo.ShowALLProperties();
+                    propertyList = bo.ShowALLProperties(state, city);
                 }
             }
             catch (Exception)
